@@ -1,0 +1,229 @@
+<!--index.wxmlrgba(224, 48, 31, 100)-->
+<view>
+	<navBar background='#333333' searchBar="{{true}}" bindsearch="handlerSearchClick">
+		<view slot="left" class='lxy-nav-bar__logo'>
+			<image src="{{logo}}"></image>
+		</view>
+	</navBar>
+
+	<scroll-view scroll-x scroll-with-animation class="tab-view" scroll-left="{{scrollLeft}}">
+		<view wx:for="{{topNav}}" wx:key="index" class="tab-bar-item {{currentTab==index ? 'active' : ''}}"
+			data-current="{{index}}" catchtap="swichNav">
+			<text class="tab-bar-title">{{item.name}}</text>
+		</view>
+		<view class="tab-bar-item">
+			<text class="tab-bar-title">.</text>
+		</view>
+	</scroll-view>
+	<view class="tab-more" catchtap="handlerTabMoreClick">
+		<!-- <text class="cuIcon-more lg text-gray"></text> -->
+		<image src="../../images/tabmorered.png" mode="aspectFit"></image>
+	</view>
+
+	<view class="tab-content" style="padding-top: 120rpx;">
+		<block wx:if="{{currentTab==0}}">
+			<view wx:if="{{slides.length > 0}}" class="tui-banner-box">
+				<swiper indicator-dots="true" autoplay="true" interval="5000" duration="150" class="tui-banner-swiper"
+					circular="{{true}}" previous-margin="15rpx" next-margin="15rpx" bindchange="handlerSlideChange">
+					<block wx:for="{{slides}}">
+						<swiper-item class="tui-banner-item" data-link="/pages/article/article?post_id={{item.id}}" catchtap="handlerActiveClick">
+							<image src="{{item.thumbnail}}"
+								class="tui-slide-image {{(current==index || (current==undefined && index==0))?'':'tui-banner-scale'}}"
+								mode="aspectFill" />
+						</swiper-item>
+					</block>
+				</swiper>
+				<!-- <swiper class="card-swiper square-dot" indicator-dots="true" circular="{{true}}" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper" indicator-color="#8799a3" indicator-active-color="#0081ff">
+					<swiper-item  data-link="{{actives.left.link}}"  class="{{cardCur==index?'cur':''}}" catchtap="handlerSlideChange">
+						<view class="swiper-item">
+							<image src="{{actives.left.image}}" mode="aspectFill"></image>
+						</view>
+					</swiper-item>
+					<swiper-item  data-link="{{actives.right_top.link}}"  class="{{cardCur==index?'cur':''}}" catchtap="handlerSlideChange">
+						<view class="swiper-item">
+							<image src="{{actives.right_top.image}}" mode="aspectFill"></image>
+						</view>
+					</swiper-item>
+					<swiper-item  data-link="{{actives.right_down.link}}"  class="{{cardCur==index?'cur':''}}" catchtap="handlerSlideChange">
+						<view class="swiper-item">
+							<image src="{{actives.right_down.image}}" mode="aspectFill"></image>
+						</view>
+					</swiper-item>
+				</swiper> -->
+			</view>
+			<!--banner-->
+
+			<view class="container">
+
+
+
+
+
+				<!--公告~toutiao-->
+				<view wx:if="{{iconNav.length>=6}}" class="jiangqie-rolling-news">
+					<image src="../../images/toutiao.png"></image>
+					<text class="sw-line">|</text>
+					<swiper vertical="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="3000" class="jiangqie-swiper">
+						<block wx:if="{{index>4}}" wx:for="{{iconNav}}" wx:key="index">
+
+							<swiper-item class="jiangqie-swiper-item">
+								<view class="jiangqie-news-item" data-link="{{item.link}}" bindtap='handlerIconNavClick'>
+									<text>公告</text>
+									{{item.title}}
+								</view>
+							</swiper-item>
+						</block>
+					</swiper>
+				</view>
+				<!--toutiao-->
+
+				<!--图标模块 可单独设置背景色、背景图、图标图-->
+				<view wx:if="{{iconNav && iconNav.length>0}}" class="jiangqie-news-icon">
+					<view wx:if="{{index>=0&&index<=4}}" wx:for="{{iconNav}}" wx:key="index" class="jiangqie-news-iconbox"
+						data-link="{{item.link}}" catchtap="handlerIconNavClick">
+						<view class="jiangqie-news-iconbg">
+							<image class="jiangqie-news-iconimg" mode="widthFix" src="{{item.icon}}"></image>
+						</view>
+						<text>{{item.title}}</text>
+					</view>
+				</view>
+
+
+
+				<!--推荐模块-->
+				<!-- <view wx:if="{{actives}}" class="jiangqie-news-view">
+					<view class="jiangqie-news-lightbox jiangqie-news-lightbox-main" data-link="{{actives.left.link}}"
+						catchtap="handlerActiveClick">
+						<image class="jiangqie-news-lightimg" src="{{actives.left.image}}" mode="aspectFill"></image>
+						<view class="jiangqie-news-lighttext">
+							<text class="jiangqie-news-lihgttitle">{{actives.left.title}}</text>
+						</view>
+					</view>
+					<view class="jiangqie-news-lightbox jiangqie-news-lightbox-side" data-link="{{actives.right_top.link}}"
+						catchtap="handlerActiveClick">
+						<image class="jiangqie-news-lightimg" src="{{actives.right_top.image}}" mode="aspectFill"></image>
+						<view class="jiangqie-news-lighttext">
+							<text class="jiangqie-news-lihgttitle">{{actives.right_top.title}}</text>
+						</view>
+					</view>
+					<view class="jiangqie-news-lightbox jiangqie-news-lightbox-side2" data-link="{{actives.right_down.link}}"
+						catchtap="handlerActiveClick">
+						<image class="jiangqie-news-lightimg" src="{{actives.right_down.image}}" mode="aspectFill"></image>
+						<view class="jiangqie-news-lighttext">
+							<text class="jiangqie-news-lihgttitle">{{actives.right_down.title}}</text>
+						</view>
+					</view>
+				</view> -->
+
+
+
+
+				<!-- 二开CMS -->
+				<!-- <view wx:if="{{iconNav.length>=6}}" class="jiangqie-news-view jiangqie-news-hot"
+					style="border-bottom: 0rpx solid #262626;border-top: 0rpx solid #262626;">
+					<view class="jiangqie-news-type">
+						猜你喜欢<text>滑动查看</text>
+					</view>
+
+					<scroll-view scroll-x="true" class="jiangqie-column-list">
+						<view class="jiangqie-column-list-box" wx:if="{{index>4}}" wx:for="{{iconNav}}" wx:key="index"
+							data-link="{{item.link}}" catchtap="handlerIconNavClick">
+							<image src="{{item.icon}}" mode="aspectFill"></image>
+							<view class="{{'color' + (index%3+1)}}">{{item.title}}</view>
+						</view>
+					</scroll-view>
+				</view> -->
+
+
+
+
+
+
+
+
+
+				<!--新闻列表——热门-->
+				<view wx:if="{{hot && hot.length>0}}" class="jiangqie-news-view jiangqie-news-hot">
+					<view class="jiangqie-news-type">
+						热门推荐<text>滑动查看</text>
+					</view>
+					<!-- <scroll-view class="jiangqie-news-scroll-x-box" scroll-x="true">
+						<view wx:for="{{hot}}" wx:key="index" class="jiangqie-hot-scroll-box" data-id="{{item.id}}" catchtap="handlerArticleClick">
+							<image src="{{item.thumbnail}}" mode="aspectFill" class="jiangqie-hot-scroll-image"></image>
+							<view class="jiangqie-hot-scroll-title">{{item.title}}</view>
+						</view>
+					</scroll-view> -->
+					<!-- 栏目列表 -->
+					<scroll-view scroll-x>
+						<view class="selected-nav-list">
+							<view wx:for="{{hot}}" wx:key="index" data-id="{{item.id}}" catchtap="handlerArticleClick">
+								<view class="selected-nav-item">
+									<view index="{{index}}" id="{{item.id}}">
+										<view class="img-container">
+											<image class="image-too" mode="aspectFill" src="{{item.thumbnail}}"></image>
+											<view class="img-category">{{item.category.name}}</view>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</scroll-view>
+				</view>
+
+				<!--新闻列表——常规-->
+				<view class="jiangqie-news-view">
+					<view wx:if="{{postsLast && postsLast.length>0}}" class="jiangqie-news-type">
+						最新壁纸
+					</view>
+				</view>
+				<!-- 最新文章二开 -->
+				<view class="list-box data-v-0034d6f4">
+					<block wx:for="{{postsLast}}" wx:key="id">
+						<view class="img-container">
+							<image src="{{item.thumbnail}}" mode="aspectFill" class="image data-v-0034d6f4" index="{{index}}"
+							data-id="{{item.id}}" catchtap="handlerArticleClick"></image>
+							<view class="img-category">{{item.category.name}}</view>
+						</view>
+						<block wx:if="{{(index+1)%9 ==0}}">
+							<import src="/templates/ad.wxml"/>
+							<template is="ad" data="{{setAD,pagead}}"/>
+						</block>
+					</block>
+				</view>
+			</view>
+			<!--加载loadding-->
+			<tui-loadmore visible="{{loaddingLast}}"></tui-loadmore>
+			<tui-nomore visible="{{!pullUpOnLast}}"></tui-nomore>
+			<!--加载loadding-->
+		</block>
+
+		<block wx:else>
+			<view class="container">
+				<view class="jiangqie-news-view">
+				</view>
+				<!-- 导航分类 -->
+				<view class="list-box data-v-0034d6f4">
+					<block wx:for="{{posts}}" wx:key="id">
+						<view class="img-container">
+							<image src="{{item.thumbnail}}" mode="aspectFill" class="image data-v-0034d6f4" index="{{index}}"
+							data-id="{{item.id}}" catchtap="handlerArticleClick"></image>
+							<view class="img-category">{{item.category.name}}</view>
+						</view>
+						<block wx:if="{{(index+1)%9 ==0}}">
+							<import src="/templates/ad.wxml"/>
+							<template is="ad" data="{{setAD,pagead}}"/>
+						</block>
+					</block>
+				</view>
+				<!-- 导航分类end -->
+			</view>
+			<!--加载loadding-->
+			<tui-loadmore visible="{{loadding}}"></tui-loadmore>
+			<tui-nomore visible="{{!pullUpOn}}"></tui-nomore>
+			<!--加载loadding-->
+		</block>
+	</view>
+</view>
+<!--加载框 start-->
+<tui-loading visible="{{loading}}"></tui-loading>
+<!--加载框 end-->

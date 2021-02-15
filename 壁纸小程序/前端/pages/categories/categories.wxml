@@ -1,0 +1,46 @@
+<!--pages/navbar/navbar.wxml
+style="background:#FFF url({{setting.background}}) no-repeat;background-size: 100% auto;background-position-y: 100rpx;"
+-->
+<view class="container" >
+	<!-- <view class="categorie-header">
+		<view class="categorie-text">
+			<text>{{setting.title}}</text>
+			<view>{{setting.description}}</view>
+		</view>
+		
+		<image src="{{setting.background}}" mode="aspectFill" />
+		<ad unit-id="adunit-38ae76f23e259f77" ad-type="grid" grid-opacity="0.8" grid-count="5" ad-theme="white"></ad>
+	</view> -->
+	<!-- <view class="right-box">
+		<view wx:for="{{categories}}" wx:key="id" class="sortbox" data-id="{{item.id}}" data-name="{{item.name}}"
+			catchtap="handlerCategoryClick">
+			<image src="{{item.cover?item.cover:categorie_cover}}" mode="aspectFill" class="sortimage" />
+			<view class="sorttitle">{{item.name}}</view>
+			<view class="sortsummary">{{item.description}}</view>
+		</view>
+
+
+
+
+	</view> -->
+	<import src="/templates/ad.wxml"/>
+			<template is="ad" data="{{setAD,pagead}}"/>
+	<view class="cu-card case">
+		<view class="cu-item shadow" wx:for="{{categories}}" wx:key="id" data-id="{{item.id}}" data-name="{{item.name}}"
+			catchtap="handlerCategoryClick">
+			<view class="image">
+				<image src="{{item.cover?item.cover:categorie_cover}}" mode="widthFix"></image>
+				<view class="cu-tag bg-blue">{{item.name}}</view>
+				<view class="cu-bar bg-shadeBottom">
+					<text class="text-cut">{{item.description}}</text>
+				</view>
+			</view>
+		</view>
+
+	</view>
+</view>
+<!--加载框 start-->
+<tui-loading visible="{{loading}}"></tui-loading>
+<!--加载框 end-->
+<import src="/templates/ad.wxml"/>
+			<template is="ad_2" data="{{setAD,pageadB}}"/>

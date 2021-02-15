@@ -1,0 +1,88 @@
+ID:91
+网址:http://www.jiameng.com/zixun/news/BM8M97a14433.htm
+Header:HTTP/1.1 200 OK
+Server:nginx
+Date:Thu, 06 Dec 2018 03:08:33 GMT
+Content-Type:text/html; charset=utf-8
+Transfer-Encoding:chunked
+Connection:keep-alive
+Vary:Accept-Encoding
+X-Powered-By:PHP/5.6.30
+Expires:Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control:no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma:no-cache
+Content-Encoding:gzip
+Content-Length:1415
+
+源代码:<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>织梦内容管理系统</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="../publics/layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="css/login.css" media="all" />
+</head>
+<body>
+<div class="login">
+	<h1>管理登录</h1>
+	<form class="layui-form">
+		<input type="hidden" name="gotopage" value="/SIIA/article_add.php" />
+		<input type="hidden" name="dopost" value="login" />
+		<div class="layui-form-item">
+			<input class="layui-input" name="userid" placeholder="用户名" lay-verify="required" type="text" autocomplete="off">
+		</div>
+		<div class="layui-form-item">
+			<input class="layui-input" name="pwd" placeholder="密码" lay-verify="required" type="password" autocomplete="off">
+		</div>
+				<button class="layui-btn login_btn" lay-submit="" lay-filter="login">登录</button>
+	</form>
+</div>
+<script type="text/javascript" src="../publics/layui/layui.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+</body>
+</html>
+========分隔线=======
+ID:119
+网址:http://www.jiameng.com/zixun/news/81m6xAp83326.htm
+Header:
+源代码:
+========分隔线=======
+ID:142
+网址:http://www.jiameng.com/zixun/news/45EBi6034443.htm
+Header:
+源代码:
+========分隔线=======
+ID:165
+网址:http://www.jiameng.com/zixun/news/3OwQ871s1752.htm
+Header:
+源代码:
+========分隔线=======
+ID:195
+网址:http://www.jiameng.com/zixun/news/2L454s612252.htm
+Header:
+源代码:
+========分隔线=======
+ID:378
+网址:http://www.jiameng.com/zixun/news/tV137K4H5227.htm
+Header:HTTP/1.1 200 OK
+Server:nginx
+Date:Tue, 18 Dec 2018 07:02:25 GMT
+Content-Type:text/html; charset=utf-8
+Transfer-Encoding:chunked
+Connection:keep-alive
+Vary:Accept-Encoding
+X-Powered-By:PHP/5.6.30
+Expires:Thu, 19 Nov 1981 08:52:00 GMT
+Pragma:no-cache
+Cache-Control:private
+Content-Encoding:gzip
+Content-Length:0
+
+源代码:
+========分隔线=======

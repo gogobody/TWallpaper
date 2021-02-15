@@ -1,0 +1,122 @@
+<!--pages/article/article.wxml-->
+<import src="../../components/wxParse/wxParse.wxml" />
+<import src="../../templates/nodata/nodata.wxml" />
+<import src="../../templates/poplogin/poplogin.wxml" />
+
+<view class="container jiangqie-page-view">
+	<tui-loading visible="{{sloading}}" text="壁纸正在赶来..."></tui-loading>
+	<image class="image-self" mode="aspectFill" onerror="imgOnerror" onload="imgLoaded" src="{{article_img}}"></image>
+	<view class="times">
+		<view class="time">{{time.hour}} : {{time.mins}}</view>
+		<view class="date">{{time.mon}}月{{time.date}}日  {{time.week}}</view>
+	</view>
+					<import src="/templates/ad.wxml"/>
+					<template is="ad" data="{{setAD,pagead}}"/>
+	<!-- <view class="jiangqie-page-cmtbox">
+		<view class="jiangqie-page-cmt-title">
+			评论<text>{{comment_count + comment_count_change}}</text>
+		</view>
+		<block wx:if="{{comments.length>0}}">
+			<view wx:for="{{comments}}" wx:key="id" class="jiangqie-page-cmt-content">
+				<view class="jiangqie-page-cmt-avatar">
+					<image src="{{item.user.avatar.length>0?item.user.avatar:'../../images/default_avatar.jpg'}}"
+						mode="aspectFill"></image>
+				</view>
+				<view class="jiangqie-page-cmt-head">
+					{{item.user.name}}
+					<text class="jiangqie-page-cmt-time">{{item.time}}</text>
+					<text wx:if="{{item.approved!=1}}" class="jiangqie-page-cmt-time">待审核</text>
+					<text class="comment-action" data-id="{{item.id}}" catchtap="handlerCommentReplyClick">回复</text>
+					<text wx:if="{{item.user.is_me==1}}" class="comment-action" data-id="{{item.id}}"
+						catchtap="handlerCommentDeleteClick">删除</text>
+				</view>
+				<view class="jiangqie-page-cmt-text">
+					<text class="jiangqie-page-cmt-text-world">{{item.content}}</text>
+					<view class="jiangqie-page-cmt-replay">
+						<view wx:for="{{item.replys}}" wx:key="id" wx:for-item="reply" class="jiangqie-page-cmt-replay-box">
+							<view class="jiangqie-page-cmt-replay-nametime">
+								{{reply.user.name}}
+								<text class="jiangqie-page-cmt-replay-time">{{reply.time}}</text>
+								<text wx:if="{{reply.approved!=1}}" class="jiangqie-page-cmt-time">待审核</text>
+								<text wx:if="{{reply.user.is_me==1}}" class="comment-action" data-id="{{reply.id}}"
+									catchtap="handlerCommentDeleteClick">删除</text>
+							</view>
+							<view class="jiangqie-page-cmt-replay-world">{{reply.content}}</view>
+						</view>
+					</view>
+				</view>
+			</view> -->
+	<!--加载loadding-->
+	<!-- <tui-loadmore visible="{{loadding}}"></tui-loadmore>
+			<tui-nomore visible="{{!pullUpOn}}"></tui-nomore> -->
+	<!--加载loadding-->
+	<!-- </block>
+		<block wx:elif="{{loaded}}">
+			<template is="jiangqie_nodata" />
+		</block>
+	</view> -->
+</view>
+
+<!-- 操作栏 -->
+<view class="tui-operation" wx:if="{{!show_comment_submit && post.switch_comment==1}}">
+	<view class="tui-operation-left tui-col-7 tui-height-full tui-ptop-zero">
+		<view class="tui-btn-comment" catchtap="downloadPhotos">下载</view>
+	</view>
+	<view class="tui-operation-right tui-right-flex tui-col-5">
+		<view class="tui-operation-item" hover-class="opcity" hover-stay-time="150" bindtap="showModal" bindtap="showModal"
+			data-target="bottomModal">
+			<image src="../../images/btn_com.png" mode="widthFix"></image>
+			<!-- <text>{{comment_count + comment_count_change}}</text> -->
+		</view>
+
+		<!-- 点赞 -->
+		<view class="tui-operation-item" catchtap="handlerLikeClick">
+			<block wx:if="{{post_like==1}}">
+				<image src="../../images/laud_on.png" mode="widthFix"></image>
+			</block>
+			<block wx:else>
+				<image src="../../images/laud.png" mode="widthFix"></image>
+			</block>
+		</view>
+
+		<!-- 收藏 -->
+		<view class="tui-operation-item" catchtap="handlerFavoriteClick">
+			<block wx:if="{{post_favorite==1}}">
+				<image src="../../images/btn_fav_on.png" mode="widthFix"></image>
+			</block>
+			<block wx:else>
+				<image src="../../images/btn_fav.png" mode="widthFix"></image>
+			</block>
+		</view>
+
+
+		<button open-type="share" class="tui-operation-item" hover-class="opcity" hover-stay-time="150">
+			<image src="../../images/btn_share.png" mode="widthFix"></image>
+		</button>
+	</view>
+</view>
+
+<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" bindtap="hideModal">
+	<view class="cu-dialog">
+		<view class="padding-xl">
+			来源：图片来自互联网，如果侵犯了您的权益，请联系我们删除。
+		</view>
+	</view>
+</view>
+
+<view catchtap="handlerCancelClick" class="pagemake" wx:if="{{show_comment_submit}}"></view>
+
+<template is="jiangqie_poplogin" data="{{show:showPopLogin}}" />
+<view class="jiangqie-goback-btn" bindtap="jumpBtn">
+	<image src="../../images/goback.png" mode="widthFix"></image>
+</view>
+
+<navigator class="jiangqie-gohome-btn" open-type="switchTab" url="../index/index">
+	<image src="../../images/gohome.png" mode="widthFix"></image>
+</navigator>
+<!--加载框 start-->
+<tui-loading visible="{{loading}}"></tui-loading>
+<!--加载框 end-->
+<!-- 海报组件 -->
+<jiangqie-poster id="poster" hide-loading="{{false}}" preload="{{false}}" config="{{posterConfig}}"
+	bind:success="onPosterSuccess" bind:fail="onPosterFail"></jiangqie-poster>

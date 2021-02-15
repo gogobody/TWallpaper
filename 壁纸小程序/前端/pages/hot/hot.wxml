@@ -1,0 +1,89 @@
+<!--pages/hot/hot.wxml-->
+
+<import src="../../templates/nodata/nodata.wxml" />
+
+<!-- <view class="jiangqie-timeline-head">
+	<image src="{{setting.background}}" mode="aspectFill"></image>
+	<view wx:if="{{setting.title.length>0 || setting.description.length>0}}" class="timeline-head-text">
+		<text>{{setting.title}}</text>
+		<view class="timeline-head-describe">{{setting.description}}</view>
+	</view>
+</view> -->
+<scroll-view scroll-x scroll-with-animation class="tab-view" scroll-left="{{0}}">
+	<view wx:for="{{tabbar}}" wx:key="index" class="tab-bar-item {{currentTab==index ? 'active' : ''}}"
+		data-current="{{index}}" catchtap="swichNav">
+		<text class="tab-bar-title">{{item}}</text>
+	</view>
+</scroll-view>
+
+<!--  style="background: url({{tl_background}}) repeat-y; background-position: -30rpx 0;" -->
+<view>
+
+	<block wx:if="{{posts.length > 0}}">
+		<view class="jiangqie-timeline-view">
+
+			<!-- <view wx:for="{{posts}}" wx:key="id" data-id="{{item.id}}" class="jiangqie-timeline-block"
+				catchtap="handlerHotArticle">
+				<view class="jiangqie-timeline-times">
+					<image src="../../images/timelinedot.png" mode="aspectFill"></image>
+					<text>{{item.time}}</text>
+				</view>
+				<view class="jiangqie-timeline-box timeline-single">
+					<image src="{{item.thumbnail}}" mode="aspectFill" class="jiangqie-timeline-image"></image>
+					<view class="jiangqie-timeline-text">
+						<view class="jiangqie-timeline-title">{{item.title}}</view>
+						<view class="jiangqie-timeline-info">
+							<view class="jiangqie-timeline-cmt">
+								<block wx:if="{{currentTab==0}}">
+									<image src="../../images/ctm2.png" mode="aspectFill" class=""></image>{{item.views}}
+								</block>
+								<block wx:elif="{{currentTab==1}}">
+									<image src="../../images/laud.png" mode="aspectFill" class=""></image>{{item.likes}}
+								</block>
+								<block wx:elif="{{currentTab==2}}">
+									<image src="../../images/ctm3.png" mode="aspectFill" class=""></image>{{item.favorites}}
+								</block>
+								<block wx:elif="{{currentTab==3}}">
+									<image src="../../images/ctm.png" mode="aspectFill" class=""></image>{{item.comment_count}}
+								</block>
+							</view>
+							<text wx:for="{{item.tags}}" wx:key="id" class="jiangqie-timeline-tag">{{item.name}}</text>
+						</view>
+					</view>
+				</view>
+			</view> -->
+
+			<!-- 二开 -->
+			<view class="list-box data-v-0034d6f4">
+				<block wx:for="{{posts}}" wx:key="id" data-id="{{item.id}}"
+				catchtap="handlerHotArticle">
+					<view class="img-container">
+						<image src="{{item.thumbnail}}" mode="aspectFill" class="image data-v-0034d6f4" index="{{index}}"
+							data-id="{{item.id}}" catchtap="handlerHotArticle"></image>
+							<view class="img-category">{{item.category.name}}</view>
+					</view>
+						<block wx:if="{{(index+1)%9 ==0}}">
+							<import src="/templates/ad.wxml"/>
+							<template is="ad" data="{{setAD,pagead}}"/>
+					</block>
+				</block>
+			</view>
+			<!-- 二开end -->
+
+			<!--加载loadding-->
+			<tui-loadmore visible="{{loadding}}"></tui-loadmore>
+			<tui-nomore visible="{{!pullUpOn}}"></tui-nomore>
+			<!--加载loadding-->
+
+		</view>
+
+	</block>
+	<block wx:elif="{{loaded}}">
+				<import src="/templates/ad.wxml"/>
+							<template is="ad" data="{{setAD,pagead}}"/>
+		<template is="jiangqie_nodata" />
+	</block>
+</view>
+<!--加载框 start-->
+<tui-loading visible="{{loading}}"></tui-loading>
+<!--加载框 end-->
