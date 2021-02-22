@@ -185,8 +185,8 @@
 							<view class="img-category">{{item.category.name}}</view>
 						</view>
 						<block wx:if="{{(index+1)%9 ==0}}">
-							<import src="/templates/ad.wxml"/>
-							<template is="ad" data="{{setAD,pagead}}"/>
+								<import src="/templates/ad.wxml"/>
+								<template is="ad" data="{{setAD,pagead}}"/>
 						</block>
 					</block>
 				</view>

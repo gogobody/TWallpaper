@@ -52,6 +52,8 @@ class TWallpaper_Plugin implements Typecho_Plugin_Interface
         $post = $base . '/posts';
         //最新文章
         Helper::addRoute('get_last_posts', $post . '/last', 'TWallpaper_Action', 'get_last_posts');
+        //删除文章
+        Helper::addRoute('delete_post',$post.'/delete','TWallpaper_Action','delete_post');
         //获取某个分类下的文章
         Helper::addRoute('get_category_posts', $post . '/category', 'TWallpaper_Action', 'get_category_posts');
         //获取某个TAG下的文章
@@ -106,6 +108,7 @@ class TWallpaper_Plugin implements Typecho_Plugin_Interface
         Helper::removeRoute('comment_delete');
 
         Helper::removeRoute('get_last_posts');
+        Helper::removeRoute('delete_post');
         Helper::removeRoute('get_category_posts');
         Helper::removeRoute('get_search_posts');
         Helper::removeRoute('get_search_hot');
@@ -313,6 +316,16 @@ class TWallpaper_Plugin implements Typecho_Plugin_Interface
         );
         $JSticky_posts->setAttribute('class', 'j-setting-content j-setting-basic');
         $form->addInput($JSticky_posts);
+
+        $JAdmin_uid = new Typecho_Widget_Helper_Form_Element_Text(
+            'JAdmin_uid',
+            NULL,
+            Null,
+            '管理员uid',
+            '[慎用] 管理员可前台删除文章。不填的话默认关闭。'
+        );
+        $JAdmin_uid->setAttribute('class', 'j-setting-content j-setting-basic');
+        $form->addInput($JAdmin_uid);
 
         /**
          * 首页设置
@@ -568,7 +581,7 @@ class TWallpaper_Plugin implements Typecho_Plugin_Interface
             'JPosisionad',
             null,'',
             '广告设置',
-            '示例：4,5,1,3;<br>广告标识：1.banner、2.视频、3.格子、4.原生A、5.原生B<br>广告位置：1.首页信息流、2.分类页顶部、3.底部、4.分类列表页信息流、5.热榜页信息流、6.我的页底部、7.我的收藏/点赞/浏览顶部、8.关于我们页底部广告'
+            '示例：4,5,1,3;表示广告位置1显示广告4，同理广告位置2显示广告5 <br>广告标识：1.banner、2.视频、3.格子、4.原生A、5.原生B<br>广告位置：1.首页信息流、2.分类页顶部、3.底部、4.分类列表页信息流、5.热榜页信息流、6.我的页底部、7.我的收藏/点赞/浏览顶部、8.关于我们页底部广告'
         );
         $JPosisionad->setAttribute('class', 'j-setting-content j-setting-llz');
         $form->addInput($JPosisionad);

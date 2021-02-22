@@ -5,7 +5,7 @@
 
 <view class="container jiangqie-page-view">
 	<tui-loading visible="{{sloading}}" text="壁纸正在赶来..."></tui-loading>
-	<image class="image-self" mode="aspectFill" onerror="imgOnerror" onload="imgLoaded" src="{{article_img}}"></image>
+	<image class="image-self" mode="aspectFill" onload="imgLoaded" src="{{article_img}}"></image>
 	<view class="times">
 		<view class="time">{{time.hour}} : {{time.mins}}</view>
 		<view class="date">{{time.mon}}月{{time.date}}日  {{time.week}}</view>
@@ -107,6 +107,9 @@
 <view catchtap="handlerCancelClick" class="pagemake" wx:if="{{show_comment_submit}}"></view>
 
 <template is="jiangqie_poplogin" data="{{show:showPopLogin}}" />
+<view wx:if="{{showdel}}" class="jiangqie-del-btn" bindtap="delPost">
+	<image src="../../images/delete.png" mode="aspectFit"></image>
+</view>
 <view class="jiangqie-goback-btn" bindtap="jumpBtn">
 	<image src="../../images/goback.png" mode="widthFix"></image>
 </view>

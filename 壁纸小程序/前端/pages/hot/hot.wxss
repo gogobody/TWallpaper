@@ -9,7 +9,7 @@
  */
 
 @import '../../templates/nodata/nodata.wxss';
-
+@import '../../templates/ad.wxss';
 .jiangqie-timeline-view {
     text-align: left;
     /* padding-left: 66rpx; */

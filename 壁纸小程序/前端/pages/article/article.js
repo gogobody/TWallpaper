@@ -32,7 +32,8 @@ Page({
         comment_content: '',
         comment_count_change: 0,
         article_img: '',
-        time: null
+        time: null,
+        showdel: false
     },
     sloading: true,
     post_id: 0,
@@ -68,6 +69,13 @@ Page({
         }
         //小程序码
         // this.loadWxacode();
+        let user = Auth.getUser()
+        console.log('user:',user)
+        if (user && user.uid == user.auid) {
+            this.setData({
+                showdel:true
+            })
+        }
     },
 
     onShow: function () {
@@ -276,7 +284,34 @@ Page({
     onPosterFail(err) {
         console.error(err);
     },
-
+    delPost(){
+        let that = this
+        wx.showModal({
+            content:'是否删除',
+            success (res) {
+                if (res.confirm) {
+                    let user = Auth.getUser()
+                    Rest.get(Api.JIANGQIE_POSTS_DELETE,{
+                        uid: user.uid,
+                        cid: that.post_id
+                    }).then(res => {
+                        console.log(res)
+                        if(res.code == 0){
+                            wx.showToast({
+                              title: '删除成功',
+                            })
+                            Util.navigateBack();
+                        }else{
+                            wx.showToast({
+                                title: '删除失败',
+                              })
+                        }
+                    })
+                } 
+              }
+        })
+        
+    },
     /**
      * 文章中a标签点击
      */
@@ -605,10 +640,6 @@ Page({
         }
 
     },
-
-
-
-
 
 
     //下载壁纸

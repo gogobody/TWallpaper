@@ -9,6 +9,7 @@
  */
 @import "../../colorui/main.wxss";
 @import "../../colorui/icon.wxss";
+@import "../../templates/ad.wxss";
 page{
     background:#333;
 }

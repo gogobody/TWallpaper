@@ -1,0 +1,8 @@
+.banner-ad-c{
+  width: 96%;
+  display:flex; justify-content:center; align-items:center;
+  margin-left: 15rpx
+}
+.banner-ad-c ad{
+
+}

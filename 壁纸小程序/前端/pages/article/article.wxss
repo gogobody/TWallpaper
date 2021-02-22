@@ -510,7 +510,21 @@ button.jiangqie-page-laud-btn {
     box-sizing: content-box;
     line-height: inherit;
 }
-
+.jiangqie-del-btn{
+    height: 96rpx;
+    width: 96rpx;
+    position: fixed;
+    right: 40rpx;
+    bottom: 290rpx;
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+    z-index: 999;
+}
+.jiangqie-del-btn image{
+    padding: 9rpx;
+    width: 100%;
+    height: 100%;
+}
 .jiangqie-goback-btn {
     height: 96rpx;
     width: 96rpx;
@@ -521,7 +535,9 @@ button.jiangqie-page-laud-btn {
     padding-bottom: env(safe-area-inset-bottom);
     z-index: 999;
 }
+.jiangqie-del-btn image{
 
+}
 .jiangqie-goback-btn button {
     background: none;
 }

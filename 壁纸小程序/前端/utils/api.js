@@ -58,7 +58,10 @@ module.exports = {
      * 获取最新文章列表
      */
     JIANGQIE_POSTS_LAST: makeURL('posts', 'last'),
-
+     /**
+     * 删除文章
+     */
+    JIANGQIE_POSTS_DELETE: makeURL('posts', 'delete'),
     /**
      * 获取某个分类下文章
      */

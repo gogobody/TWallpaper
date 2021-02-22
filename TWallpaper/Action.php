@@ -1,6 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 require_once 'Utils.php';
+require_once 'widget/Widget_Post_Edit_Modify.php';
 define('UPLOAD_DIR', '/usr/uploads');
 
 class TWallpaper_Action extends Typecho_Widget implements Widget_Interface_Do
@@ -128,15 +129,15 @@ class TWallpaper_Action extends Typecho_Widget implements Widget_Interface_Do
         $cat_ids = !empty($args['include']) ? $args['include'] : null;
         $exclude = !empty($args['exclude']) ? $args['exclude'] : null;
         if (isset($cat_ids) && !empty($cat_ids[0])) {
-            $select = $this->db->select('mid','name')->from('table.metas')->where('type = ?', 'category')->where('mid IN ?', $cat_ids);
+            $select = $this->db->select('mid','name','description')->from('table.metas')->where('type = ?', 'category')->where('mid IN ?', $cat_ids);
         } elseif (isset($exclude) and !empty($exclude[0])) {
-            $select = $this->db->select('mid','name')->from('table.metas')->where('type = ?', 'category');
+            $select = $this->db->select('mid','name','description')->from('table.metas')->where('type = ?', 'category');
 
             foreach ($exclude as $ext) {
                 $select = $select->where('mid <> ?', $ext);
             }
         } else {
-            $select = $this->db->select('mid','name')->from('table.metas')->where('type = ?', 'category');
+            $select = $this->db->select('mid','name','description')->from('table.metas')->where('type = ?', 'category');
         }
         return $this->db->fetchAll($select);
     }
@@ -745,7 +746,36 @@ class TWallpaper_Action extends Typecho_Widget implements Widget_Interface_Do
         $posts = $this->get_posts($args, true);
         return $this->make_success($posts);
     }
+    /**
+     * 删除文章
+     * @throws Typecho_Plugin_Exception
+     */
+    public function delete_post()
+    {
+//        $user_id = $this->check_login();
+//        if (!$user_id) {
+//            return $this->make_error('还没有登陆', -1);
+//        }
+        $uid = $this->request->get('uid', '');
+        $post_id = $this->request->get('cid', '');
 
+        if (!$uid or !$post_id){
+            return $this->make_error('bad params1.');
+        }
+        $admin_uid = self::option_value('JAdmin_uid');
+        if ($uid != $admin_uid){
+            return $this->make_error('bad params2');
+        }
+        $user_cid = $this->db->fetchObject($this->db->select('uid')->from('table.users')->where('uid = ?',$uid))->uid;
+        if (!$user_cid){
+            return $this->make_error('user error');
+        }
+//        $this->db->query($this->db->delete('table.contents')->where('cid = ?',$post_id));
+        $wcps = new Widget_Post_Edit_Modify($this->request,$this->response);
+        $wcps->deletePost();
+        return $this->make_success([]);
+
+    }
     /**
      * 获取某一分类下的文章
      */
@@ -1321,12 +1351,14 @@ class TWallpaper_Action extends Typecho_Widget implements Widget_Interface_Do
             'avatarUrl' => $user_data['avatarUrl'],
             'one_token' => $one_token
         ]);
-
+        $admin_uid = self::option_value('JAdmin_uid');
         $user = array(
             "nickname" => $user_data["nickName"],
             "avatar" => $user_data["avatarUrl"],
             "token" => $one_token,
-            "ext_mail" => !empty($user_data["ext_mail"]) ? $user_data["ext_mail"] : ''
+            "ext_mail" => !empty($user_data["ext_mail"]) ? $user_data["ext_mail"] : '',
+            "uid" => $user_id,
+            "auid" => $admin_uid ?$admin_uid:false
         );
 
         return $this->make_success($user);
